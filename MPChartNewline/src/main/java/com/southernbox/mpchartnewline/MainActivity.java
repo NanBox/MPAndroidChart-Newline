@@ -28,8 +28,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int COLOR_LINE = Color.parseColor("#313131");
-
     private LineChart mChart;
 
     @Override
@@ -77,16 +75,13 @@ public class MainActivity extends AppCompatActivity {
         //设置Y轴
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
-        leftAxis.setGridColor(COLOR_LINE);
+        leftAxis.setGridColor(Color.parseColor("#313131"));
         leftAxis.setGridLineWidth(1f);
         leftAxis.setTextSize(10);
         leftAxis.setDrawAxisLine(false);//不显示Y坐标轴上的线
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);//设置Y坐标显示在右边
         leftAxis.setYOffset(-7f);//Y坐标显示向上偏移
 
-        mChart.animateX(200);
-        Legend l = mChart.getLegend();
-        l.setForm(Legend.LegendForm.LINE);
     }
 
     private void initData() {

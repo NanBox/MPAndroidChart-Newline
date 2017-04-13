@@ -42,25 +42,34 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initChartView() {
         mChart = (LineChart) findViewById(R.id.chart);
-
-        mChart.setScaleEnabled(true);//启用/禁用缩放图表上的两个轴
-        mChart.setScaleEnabled(false);// 是否可以缩放
-        mChart.setPinchZoom(false);// 集双指缩放
+        //启用/禁用缩放图表上的两个轴
+        mChart.setScaleEnabled(true);
+        //是否可以缩放
+        mChart.setScaleEnabled(false);
+        //集双指缩放
+        mChart.setPinchZoom(false);
         mChart.setViewPortOffsets(0, 0, 0, dip2px(this, 50));
-        mChart.setDragOffsetX(30);//增加X轴最左边与Y轴的距离
-        mChart.setBackgroundColor(ContextCompat.getColor(this, R.color.chart_toolbar_bg));//设置背景颜色
+        //增加X轴最左边与Y轴的距离
+        mChart.setDragOffsetX(30);
+        //设置背景颜色
+        mChart.setBackgroundColor(ContextCompat.getColor(this, R.color.chart_toolbar_bg));
         mChart.setDrawGridBackground(true);
-        mChart.setGridBackgroundColor(ContextCompat.getColor(this, R.color.chart_bg));//设置表格颜色
+        //设置表格颜色
+        mChart.setGridBackgroundColor(ContextCompat.getColor(this, R.color.chart_bg));
         mChart.getAxisRight().setEnabled(false);
-        mChart.setDescription(null);//设置一个描述的文本出现在右下角的图
-        mChart.getLegend().setEnabled(false);//隐藏图例
+        //设置一个描述的文本出现在右下角的图
+        mChart.setDescription(null);
+        //隐藏图例
+        mChart.getLegend().setEnabled(false);
 
         //设置X轴
         XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置X轴的位置
+        //设置X轴的位置
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);//不显示X坐标轴上的线
+        //不显示X坐标轴上的线
+        xAxis.setDrawAxisLine(false);
         xAxis.setYOffset(10f);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
@@ -77,9 +86,12 @@ public class MainActivity extends AppCompatActivity {
         leftAxis.setGridColor(Color.parseColor("#313131"));
         leftAxis.setGridLineWidth(1f);
         leftAxis.setTextSize(10);
-        leftAxis.setDrawAxisLine(false);//不显示Y坐标轴上的线
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);//设置Y坐标显示在右边
-        leftAxis.setYOffset(-7f);//Y坐标显示向上偏移
+        //不显示Y坐标轴上的线
+        leftAxis.setDrawAxisLine(false);
+        //设置Y坐标显示在右边
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        //Y坐标显示向上偏移
+        leftAxis.setYOffset(-7f);
 
     }
 
@@ -118,7 +130,8 @@ public class MainActivity extends AppCompatActivity {
             lineDataSet.setLineWidth(2f);
             lineDataSet.setDrawCircleHole(false);
             lineDataSet.setDrawCircles(false);
-            lineDataSet.setDrawValues(false);//启用/禁用绘制所有DataSets数据对象包含的数据的值文本
+            //启用/禁用绘制所有DataSets数据对象包含的数据的值文本
+            lineDataSet.setDrawValues(false);
             lineDataSet.setDrawFilled(false);
             lineDataSet.setDrawHorizontalHighlightIndicator(false);
             lineDataSet.setHighlightBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.statistic_highlight));

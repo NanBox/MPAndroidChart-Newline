@@ -230,7 +230,7 @@ public class XAxisRenderer extends AxisRenderer {
     protected void drawLabel(Canvas c, String formattedLabel, float x, float y, MPPointF anchor, float angleDegrees) {
         float labelHeight = mXAxis.getTextSize();
         float labelInterval = 25f;
-        String[] labels = formattedLabel.split(" ");
+        String[] labels = formattedLabel.split("\n");
 
         Paint mFirstLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mFirstLinePaint.setColor(Color.WHITE);

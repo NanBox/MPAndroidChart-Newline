@@ -1,11 +1,9 @@
 package com.southernbox.mpchartnewline;
 
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -25,7 +23,7 @@ import java.util.List;
  * 主页面
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private LineChart mChart;
 
@@ -48,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
         mChart.setScaleEnabled(false);
         //集双指缩放
         mChart.setPinchZoom(false);
-        mChart.setViewPortOffsets(0, 0, 0, dip2px(this, 50));
+        mChart.setViewPortOffsets(0, 0, 0, 130);
         //增加X轴最左边与Y轴的距离
         mChart.setDragOffsetX(30);
         //设置背景颜色
-        mChart.setBackgroundColor(ContextCompat.getColor(this, R.color.chart_toolbar_bg));
+        mChart.setBackgroundColor(getResources().getColor(R.color.chart_toolbar_bg));
         mChart.setDrawGridBackground(true);
         //设置表格颜色
-        mChart.setGridBackgroundColor(ContextCompat.getColor(this, R.color.chart_bg));
+        mChart.setGridBackgroundColor(getResources().getColor(R.color.chart_bg));
         mChart.getAxisRight().setEnabled(false);
         //设置一个描述的文本出现在右下角的图
         mChart.setDescription(null);
@@ -72,14 +70,15 @@ public class MainActivity extends AppCompatActivity {
         xAxis.setDrawAxisLine(false);
         xAxis.setYOffset(10f);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
+
+            String[] values = {"1月\n2018", "2月\n2018", "3月\n2018",
+                    "4月\n2018", "5月\n2018", "6月\n2018", "7月\n2018"};
+
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                int year = Integer.valueOf(String.valueOf((int) value).substring(0, 4));
-                int month = Integer.valueOf(String.valueOf((int) value).substring(4));
-                return month + "月 " + year;
+                return values[(int) value];
             }
         });
-
         //设置Y轴
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
@@ -92,68 +91,32 @@ public class MainActivity extends AppCompatActivity {
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         //Y坐标显示向上偏移
         leftAxis.setYOffset(-7f);
-
     }
 
     private void initData() {
-        //x轴数据
-        List<Float> xData = new ArrayList<>();
-        xData.add(201701f);
-        xData.add(201702f);
-        xData.add(201703f);
-        xData.add(201704f);
-        xData.add(201705f);
-        xData.add(201706f);
-        xData.add(201707f);
-
-        //统计曲线
-        List<LineDataSet> lineDataSets = new ArrayList<>();
-        int maxNum = 0;//最大值
-        for (int i = 0; i < 10; i++) {
-            //y轴数据
-            List<Integer> numList = new ArrayList<>();
-            numList.add(2);
-            numList.add(1);
-            numList.add(4);
-            numList.add(3);
-            numList.add(6);
-            numList.add(5);
-            numList.add(3);
-            ArrayList<Entry> values = new ArrayList<>();
-            for (int j = 0; j < numList.size(); j++) {
-                values.add(new Entry(xData.get(j), numList.get(j)));
-                if (numList.get(j) > maxNum) {
-                    maxNum = numList.get(j);
-                }
-            }
-            LineDataSet lineDataSet = new LineDataSet(values, "");
-            lineDataSet.setLineWidth(2f);
-            lineDataSet.setDrawCircleHole(false);
-            lineDataSet.setDrawCircles(false);
-            //启用/禁用绘制所有DataSets数据对象包含的数据的值文本
-            lineDataSet.setDrawValues(false);
-            lineDataSet.setDrawFilled(false);
-            lineDataSet.setDrawHorizontalHighlightIndicator(false);
-            lineDataSet.setHighlightBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.statistic_highlight));
-
-            lineDataSets.add(lineDataSet);
-        }
-
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-
-        if (lineDataSets.size() > 0) {
-            for (LineDataSet lineDataSet : lineDataSets) {
-                dataSets.add(lineDataSet);
-            }
-        }
-
+        // 添加数据
+        ArrayList<Entry> values = new ArrayList<>();
+        values.add(new Entry(0, 2));
+        values.add(new Entry(1, 7));
+        values.add(new Entry(2, 4));
+        values.add(new Entry(3, 3));
+        values.add(new Entry(4, 5));
+        values.add(new Entry(5, 8));
+        values.add(new Entry(6, 11));
+        // 添加折线
+        List<ILineDataSet> dataSets = new ArrayList<>();
+        LineDataSet lineDataSet = new LineDataSet(values, "");
+        lineDataSet.setLineWidth(2f);
+        lineDataSet.setDrawCircleHole(false);
+        lineDataSet.setDrawCircles(false);
+        lineDataSet.setDrawValues(false);
+        lineDataSet.setDrawFilled(false);
+        lineDataSet.setDrawHorizontalHighlightIndicator(false);
+        lineDataSet.setHighlightBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.statistic_highlight));
+        dataSets.add(lineDataSet);
+        // 绘制折线
         LineData data = new LineData(dataSets);
         mChart.setData(data);
         mChart.invalidate();
-    }
-
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
     }
 }

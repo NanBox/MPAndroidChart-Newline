@@ -1,18 +1,16 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
-}
-
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.4.1'
     }
 }
 
 allprojects {
     repositories {
+        google()
         jcenter()
     }
 }
